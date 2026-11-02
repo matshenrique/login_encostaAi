@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ */
+/* Tokens da identidade visual Encosta AI                              */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-brand: #0878f9;
+  --color-brand-dark: #102f50;
+  --color-brand-secondary: #0865c0;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f4f7fb;
+  --color-ink-muted: #64748b;
+  --color-danger: #c2312d;
+  --color-danger-soft: #fdeceb;
+  --color-success: #0f8a5f;
+  --color-success-soft: #e6f6ef;
+
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(16 47 80 / 0.04), 0 12px 32px -12px rgb(16 47 80 / 0.14);
+
+  --animate-fade-up: fade-up 0.5s ease-out both;
+  --animate-shake: shake 0.35s ease-in-out;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-surface-muted font-sans text-brand-dark antialiased;
+    margin: 0;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Componentes (classes reutilizáveis, separadas da marcação)          */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .auth-card {
+    @apply w-full max-w-md rounded-2xl border border-slate-200/70 bg-surface p-6 shadow-card sm:p-10;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-brand-dark;
+  }
+
+  .field-control {
+    @apply flex h-12 w-full items-center gap-2 rounded-xl border border-slate-300 bg-surface px-3.5 text-base text-brand-dark transition-all duration-200;
+    @apply focus-within:border-brand focus-within:ring-4 focus-within:ring-brand/15;
+    @apply hover:border-slate-400;
+  }
+  .field-control[data-invalid='true'] {
+    @apply border-danger focus-within:border-danger focus-within:ring-danger/15;
+  }
+
+  .field-input {
+    @apply h-full min-w-0 flex-1 border-0 bg-transparent p-0 text-base text-brand-dark outline-none placeholder:text-slate-400;
+  }
+  .field-input:focus-visible {
+    outline: none;
+  }
+
+  .field-icon {
+    @apply h-5 w-5 shrink-0 text-ink-muted;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-sm font-medium text-danger;
+  }
+
+  .icon-button {
+    @apply -mr-1.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-ink-muted transition-colors duration-200;
+    @apply hover:bg-surface-muted hover:text-brand-dark;
+  }
+
+  .btn-primary {
+    @apply inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 text-base font-semibold text-white transition-all duration-200;
+    @apply hover:bg-brand-secondary hover:shadow-lg hover:shadow-brand/25 active:scale-[0.99];
+    @apply disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-brand disabled:hover:shadow-none;
+  }
+
+  .link-subtle {
+    @apply rounded-sm text-sm font-semibold text-brand transition-colors duration-200 hover:text-brand-secondary hover:underline underline-offset-4;
+  }
+
+  .checkbox-box {
+    @apply relative h-5 w-5 shrink-0 cursor-pointer appearance-none rounded-md border border-slate-300 bg-surface transition-all duration-200;
+    @apply checked:border-brand checked:bg-brand hover:border-brand;
+  }
+  .checkbox-box:checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-6.5'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+  }
+
+  .alert {
+    @apply flex items-start gap-3 rounded-xl border px-4 py-3 text-sm font-medium;
+  }
+  .alert-error {
+    @apply border-danger/25 bg-danger-soft text-danger;
+  }
+  .alert-success {
+    @apply border-success/25 bg-success-soft text-success;
+  }
+
+  .spinner {
+    @apply h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white;
+  }
+
+  /* Fundo decorativo discreto */
+  .auth-backdrop {
+    background-image:
+      radial-gradient(60rem 30rem at 50% -10%, rgb(8 120 249 / 0.08), transparent 70%),
+      radial-gradient(40rem 24rem at 100% 100%, rgb(16 47 80 / 0.06), transparent 70%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
